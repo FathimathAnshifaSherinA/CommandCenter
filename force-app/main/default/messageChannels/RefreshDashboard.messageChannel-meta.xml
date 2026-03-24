@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+  <masterLabel>RefreshDashboard</masterLabel>
+  <isExposed>true</isExposed>
+  <description>Published by the parent dashboard to trigger a refresh on all child components simultaneously.</description>
+  <lightningMessageFields>
+    <fieldName>requestedBy</fieldName>
+    <description>Which component triggered the refresh</description>
+  </lightningMessageFields>
+  <lightningMessageFields>
+    <fieldName>timestamp</fieldName>
+    <description>ISO timestamp of when the refresh was triggered</description>
+  </lightningMessageFields>
+</LightningMessageChannel>

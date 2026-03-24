@@ -1,0 +1,50 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 03-22-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <div class="slds-grid slds-wrap slds-gutters">
+
+    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+      <div class="slds-grid slds-grid_vertical-align-center">
+        <div class="slds-grow">
+          <h1 class="slds-text-heading_large">
+            ⚡ Enterprise Command Center
+          </h1>
+          <p class="slds-text-body_regular slds-text-color_weak">
+            Real-time data from SAP · AWS · Logistics
+          </p>
+        </div>
+
+        <div class="slds-no-flex">
+          <lightning-button-icon
+            icon-name="utility:refresh"
+            variant="border"
+            size="medium"
+            tooltip="Refresh all panels"
+            disabled={isRefreshing}
+            onclick={handleRefreshAll}>
+          </lightning-button-icon>
+          <p class="slds-text-body_small slds-text-color_weak
+                     slds-m-top_xx-small slds-text-align_center">
+            {lastRefreshedLabel}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-col slds-size_1-of-3">
+      <c-billing-info></c-billing-info>
+    </div>
+    <div class="slds-col slds-size_1-of-3">
+      <c-inventory-panel></c-inventory-panel>
+    </div>
+    <div class="slds-col slds-size_1-of-3">
+      <c-shipping-status></c-shipping-status>
+    </div>
+
+  </div>
+</template>

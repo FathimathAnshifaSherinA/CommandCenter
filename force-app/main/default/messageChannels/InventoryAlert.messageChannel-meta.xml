@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+  <masterLabel>InventoryAlert</masterLabel>
+  <isExposed>true</isExposed>
+  <description>Fires when inventory data loads or stock is low.</description>
+  <lightningMessageFields>
+    <fieldName>productId</fieldName>
+    <description>Product identifier</description>
+  </lightningMessageFields>
+  <lightningMessageFields>
+    <fieldName>stockLevel</fieldName>
+    <description>Current stock count</description>
+  </lightningMessageFields>
+  <lightningMessageFields>
+    <fieldName>isLowStock</fieldName>
+    <description>Boolean flag for low stock alert</description>
+  </lightningMessageFields>
+</LightningMessageChannel>

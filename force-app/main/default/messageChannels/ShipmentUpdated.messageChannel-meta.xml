@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+  <masterLabel>ShipmentUpdated</masterLabel>
+  <isExposed>true</isExposed>
+  <description>Fires when shipping data is loaded from the Logistics API.</description>
+  <lightningMessageFields>
+    <fieldName>trackingNumber</fieldName>
+    <description>The shipment tracking number</description>
+  </lightningMessageFields>
+  <lightningMessageFields>
+    <fieldName>status</fieldName>
+    <description>Current shipment status</description>
+  </lightningMessageFields>
+</LightningMessageChannel>

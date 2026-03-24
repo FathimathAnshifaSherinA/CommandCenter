@@ -1,0 +1,109 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 03-23-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <lightning-card title="Shipping — Logistics" icon-name="standard:orders">
+    <template lwc:if={isLoading}>
+      <div class="slds-align_absolute-center slds-p-around_medium">
+        <lightning-spinner alternative-text="Loading..." size="medium">
+        </lightning-spinner>
+      </div>
+    </template>
+
+    <template lwc:elseif={hasError}>
+      <div class="slds-p-around_medium">
+        <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+          <lightning-icon icon-name="utility:error" size="xx-small"
+            class="slds-m-right_x-small">
+          </lightning-icon>
+          {errorMessage}
+        </div>
+      </div>
+    </template>
+
+    <template lwc:else>
+      <div class="slds-p-around_medium">
+
+        <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+          <div class="slds-grid slds-grid_vertical-align-center">
+            <div class="slds-grow">
+              <p class="slds-text-heading_small">
+                {shippingData.trackingNumber}
+              </p>
+              <p class="slds-text-body_small slds-text-color_weak">
+                {shippingData.carrier}
+              </p>
+            </div>
+            <lightning-badge label={shippingData.status}
+              class={statusBadgeClass}>
+            </lightning-badge>
+          </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-gutters_small slds-m-bottom_medium">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">Origin</p>
+              <p class="slds-text-heading_small">{shippingData.origin}</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">
+                Destination
+              </p>
+              <p class="slds-text-heading_small">{shippingData.destination}</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">
+                Est. Delivery
+              </p>
+              <p class="slds-text-heading_small">
+                {shippingData.estimatedDelivery}
+              </p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">Weight</p>
+              <p class="slds-text-heading_small">{shippingData.weight}</p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+            <div class="slds-box slds-box_x-small">
+              <p class="slds-text-body_small slds-text-color_weak">
+                {shippingData.lastEventLocation}
+              </p>
+              <p class="slds-text-body_regular">{shippingData.lastEvent}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-m-top_small">
+          <p class="slds-text-body_small slds-text-color_weak
+                     slds-m-bottom_x-small">
+            Shipment Progress
+          </p>
+          <lightning-progress-bar
+            value={progressValue}
+            size="large">
+          </lightning-progress-bar>
+        </div>
+
+        <div class="slds-box slds-box_x-small slds-theme_shade slds-m-top_small">
+          <p class="slds-text-body_small slds-text-align_center
+                     slds-text-color_weak">
+            {shippingData.dataSource}
+          </p>
+        </div>
+
+      </div>
+    </template>
+  </lightning-card>
+</template>

@@ -1,0 +1,95 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 03-23-2026
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <lightning-card title="Inventory — AWS" icon-name="standard:product_item">
+    <template lwc:if={isLoading}>
+      <div class="slds-align_absolute-center slds-p-around_medium">
+        <lightning-spinner alternative-text="Loading..." size="medium">
+        </lightning-spinner>
+      </div>
+    </template>
+
+    <template lwc:elseif={hasError}>
+      <div class="slds-p-around_medium">
+        <div class="slds-notify slds-notify_alert slds-theme_error" role="alert">
+          <lightning-icon icon-name="utility:error" size="xx-small"
+            class="slds-m-right_x-small">
+          </lightning-icon>
+          {errorMessage}
+        </div>
+      </div>
+    </template>
+
+    <template lwc:else>
+      <div class="slds-p-around_medium">
+
+        <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+          <p class="slds-text-heading_small">{inventoryData.productName}</p>
+          <p class="slds-text-body_small slds-text-color_weak">
+            {inventoryData.brand} · SKU: {inventoryData.skuId}
+          </p>
+          <p class="slds-text-body_small slds-text-color_weak">
+            {inventoryData.storageLocation}
+          </p>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-gutters_small slds-m-bottom_medium">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">On Hand</p>
+              <p class={stockLevelClass}
+                 style="font-size:1.25rem;font-weight:700">
+                {inventoryData.stockLevel}
+              </p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">Available</p>
+              <p class="slds-text-heading_medium">
+                {inventoryData.quantityAvailable}
+              </p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">Reserved</p>
+              <p class="slds-text-heading_medium">
+                {inventoryData.quantityReserved}
+              </p>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+              <p class="slds-text-body_small slds-text-color_weak">Region</p>
+              <p class="slds-text-heading_small">{inventoryData.region}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-box slds-box_x-small slds-theme_shade slds-m-bottom_small">
+          <p class="slds-text-body_small slds-text-align_center
+                     slds-text-color_weak">
+            {inventoryData.dataSource}
+          </p>
+        </div>
+
+        <template lwc:if={inventoryData.isLowStock}>
+          <div class="slds-notify slds-notify_alert slds-theme_warning"
+               role="alert">
+            <lightning-icon icon-name="utility:warning" size="xx-small"
+              class="slds-m-right_x-small">
+            </lightning-icon>
+            Stock below reorder point — raise purchase order
+          </div>
+        </template>
+
+      </div>
+    </template>
+  </lightning-card>
+</template>
