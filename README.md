@@ -265,7 +265,7 @@ Replace `YOUR_ACTUAL_API_KEY` in `BillingContinuationCtrl.cls` with your Exchang
  
 ## 👩‍💻 Author
  
-**Anshifa Sherina**
+**Fathimath Anshifa Sherin A**
 Salesforce Developer | Open to Opportunities
  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com/in/YOUR_PROFILE)
