@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "/Users/anshifasherin/Desktop/SalesforceLinkedInProjects/3/CommandCenter"
+    }
+  ],
+  "settings": {
+    "eslint.workingDirectories": [
+      "/Users/anshifasherin/Desktop/SalesforceLinkedInProjects/3/CommandCenter"
+    ],
+    "eslint.validate": [
+      "javascript",
+      "typescript"
+    ],
+    "eslint.options": {
+      "overrideConfigFile": "/Users/anshifasherin/Desktop/SalesforceLinkedInProjects/3/CommandCenter/.eslintrc.json"
+    }
+  }
+}
