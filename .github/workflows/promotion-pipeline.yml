@@ -1,0 +1,71 @@
+name: Release Train Promotions
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: Which environment to promote TO?
+        required: true
+        type: choice
+        options:
+          - uat
+          - staging
+          - production
+
+jobs:
+
+  promote-to-uat:
+    if: github.event.inputs.target_environment == "uat"
+    runs-on: ubuntu-latest
+    environment:
+      name: uat
+      url: https://your-uat-sandbox.salesforce.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Authenticate to UAT
+        run: |
+          echo "${{ secrets.SFDX_AUTH_URL_UAT }}" > auth-file.txt
+          sf org login sfdx-url --sfdx-url-file auth-file.txt --alias uat-sandbox
+
+      - name: Validate before deploy
+        run: |
+          sf project deploy validate             --target-org uat-sandbox             --manifest manifest/package.xml             --test-level RunLocalTests             --wait 60
+
+      - name: Deploy to UAT
+        run: |
+          sf project deploy start             --target-org uat-sandbox             --manifest manifest/package.xml             --test-level RunLocalTests             --wait 60
+
+  promote-to-production:
+    if: github.event.inputs.target_environment == "production"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Authenticate to Production
+        run: |
+          echo "${{ secrets.SFDX_AUTH_URL_PROD }}" > auth-file.txt
+          sf org login sfdx-url --sfdx-url-file auth-file.txt --alias prod-org
+
+      - name: Validate against Production
+        run: |
+          sf project deploy validate             --target-org prod-org             --manifest manifest/package.xml             --test-level RunAllTestsInOrg             --wait 120
+
+      - name: Deploy to Production
+        run: |
+          sf project deploy start             --target-org prod-org             --manifest manifest/package.xml             --test-level RunAllTestsInOrg             --wait 120
+
+      - name: Tag the release in Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git tag -a "release-$(date +%Y%m%d-%H%M)" -m "Production deployment"
+          git push origin --tags
